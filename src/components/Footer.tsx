@@ -8,7 +8,7 @@ export default function Footer() {
         </div>
         <div className="flex flex-col">
           <span className="text-[10px] uppercase font-bold tracking-widest opacity-40 mb-1">Contact</span>
-          <span className="text-xs font-medium">Official@scuca.org</span>
+          <span className="text-xs font-medium">cascu2008@163.com</span>
         </div>
         <div className="flex flex-col">
           <span className="text-[10px] uppercase font-bold tracking-widest opacity-40 mb-1">Copyright</span>

@@ -1,13 +1,15 @@
 import { useState, type FormEvent, type ChangeEvent } from 'react';
 import { motion } from 'motion/react';
-import { Calendar as CalendarIcon, MapPin, CheckCircle2 } from 'lucide-react';
+import { Calendar as CalendarIcon, MapPin, CheckCircle2, Trophy } from 'lucide-react';
+import { events } from '../data/events';
 
 export default function RegistrationForm() {
+  const openEvents = events.filter(e => e.status !== 'closed');
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     campus: '望江',
-    event: '龙泉山日出周末骑行',
+    event: openEvents[0]?.id || '',
     hasBike: 'yes'
   });
   const [submitted, setSubmitted] = useState(false);
@@ -35,7 +37,7 @@ export default function RegistrationForm() {
           <CheckCircle2 className="w-16 h-16 text-[#C00000] mx-auto mb-6" />
           <h3 className="text-3xl font-black text-[#1A1A1A] mb-4 uppercase tracking-tighter">报名成功</h3>
           <p className="text-[#1A1A1A]/70 mb-8 text-sm">
-            车协干事将尽快与您联系，请保持手机畅通并留意短信通知。期待与你一同骑行。
+            车协干事将尽快与您联系，请保持手机畅通并留意短信通知。期待与你在赛道与山野相见。
           </p>
           <button 
             onClick={() => setSubmitted(false)}
@@ -58,31 +60,32 @@ export default function RegistrationForm() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-5xl md:text-6xl font-black text-[#1A1A1A] tracking-tighter uppercase mb-6">活动快速报名<br/><span className="text-transparent" style={{ WebkitTextStroke: '2px #1A1A1A' }}>SIGNUP</span></h2>
+              <h2 className="text-5xl md:text-6xl font-black text-[#1A1A1A] tracking-tighter uppercase mb-6">赛事及活动报名<br/><span className="text-transparent" style={{ WebkitTextStroke: '2px #1A1A1A' }}>REGISTRATION</span></h2>
               <div className="w-12 h-1 bg-[#C00000] mb-8" />
-              <p className="text-lg font-serif italic text-[#1A1A1A]/70 leading-relaxed mb-10 max-w-md">
-                无需繁琐的认证步骤，挑选心仪的近期活动，提交您的参与意向。活动领队将在出发前统一通知集合时间与注意事项。
+              <p className="text-lg font-serif italic text-[#1A1A1A]/70 leading-relaxed mb-6 max-w-md">
+                "车协杯"是四川大学自行车协会年度旗舰赛事，汇聚全校骑行爱好者，以速度、技巧与团队协作展开角逐。第十届车协杯将首次落地成都天府国际赛道。
+              </p>
+              <p className="text-sm font-serif italic text-[#1A1A1A]/50 leading-relaxed mb-10 max-w-md">
+                同时包含平时的周边拉练、公益活动及休闲骑行。挑选心仪的近期赛事与活动，提交您的参与意向！
               </p>
 
               <div className="space-y-0 border-t border-[#1A1A1A]/10">
-                <div className="py-6 border-b border-[#1A1A1A]/10 flex items-start gap-4 hover:bg-white transition-colors px-4 group">
-                  <div className="text-[#C00000] group-hover:text-[#1A1A1A] transition-colors">
-                    <MapPin className="w-6 h-6" />
+                {events.map((evt) => (
+                  <div key={evt.id} className="py-6 border-b border-[#1A1A1A]/10 flex items-start gap-4 hover:bg-white transition-colors px-4 group">
+                    <div className={`${evt.type === 'cup' ? 'text-[#C00000]' : 'text-[#1A1A1A] group-hover:text-[#C00000]'} transition-colors`}>
+                      {evt.type === 'cup' ? <Trophy className="w-6 h-6" /> : (evt.type === 'ride' ? <MapPin className="w-6 h-6" /> : <CalendarIcon className="w-6 h-6" />)}
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-[#1A1A1A] text-lg mb-1">{evt.title}</h4>
+                      <p className="text-[10px] uppercase font-bold tracking-widest text-[#1A1A1A]/50">
+                        {evt.time} 
+                        {evt.difficulty ? ` · DIFFICULTY: ${evt.difficulty}` : ''}
+                        {evt.location ? ` · LOCATION: ${evt.location}` : ''}
+                        {evt.status === 'upcoming' ? ' [即将开放]' : ''}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-bold text-[#1A1A1A] text-lg mb-1">近期热推：龙泉山观日出</h4>
-                    <p className="text-[10px] uppercase font-bold tracking-widest text-[#1A1A1A]/50">周六 05:00 · DIFFICULTY: MID</p>
-                  </div>
-                </div>
-                <div className="py-6 border-b border-[#1A1A1A]/10 flex items-start gap-4 hover:bg-white transition-colors px-4 group">
-                  <div className="text-[#1A1A1A]">
-                    <CalendarIcon className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-[#1A1A1A] text-lg mb-1">即将开始：校园公益修车</h4>
-                    <p className="text-[10px] uppercase font-bold tracking-widest text-[#1A1A1A]/50">周日 14:00 · LOCATION: SQUARE</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </motion.div>
           </div>
@@ -105,9 +108,11 @@ export default function RegistrationForm() {
                   onChange={handleChange}
                   className="w-full px-4 py-4 bg-[#F4F4F1] border border-[#1A1A1A]/20 focus:border-[#C00000] focus:ring-0 rounded-none focus:outline-none transition-colors appearance-none"
                 >
-                  <option value="龙泉山日出周末骑行">【本周】龙泉山日出骑游</option>
-                  <option value="黄龙溪古镇休闲骑">【下周】黄龙溪古镇休闲骑</option>
-                  <option value="校园公益修车体验">【现场】校园公益修车学徒体验</option>
+                  {openEvents.map(evt => (
+                    <option key={evt.id} value={evt.id} disabled={evt.status === 'upcoming'}>
+                      {evt.title} {evt.status === 'upcoming' ? '(即将开始)' : ''}
+                    </option>
+                  ))}
                 </select>
               </div>
 
