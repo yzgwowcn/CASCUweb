@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-editorial-bg: #F4F4F1;
+  --color-editorial-text: #1A1A1A;
+  --color-editorial-red: #C00000;
+  
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-serif: "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-editorial-bg);
+  color: var(--color-editorial-text);
+}
