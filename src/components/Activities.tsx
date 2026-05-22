@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Map, Flag, Wrench, Calendar, Trophy, ArrowRight } from 'lucide-react';
 
@@ -24,9 +25,9 @@ export default function Activities() {
   ];
 
   const highlights = [
-    { label: "活动年历", subtitle: "CALENDAR", icon: <Calendar className="w-5 h-5"/>, desc: "春季活动正在进行中" },
-    { label: "车协历史", subtitle: "HISTORY", icon: <Flag className="w-5 h-5"/>, desc: "十余年风雨骑行录" },
-    { label: "车协杯", subtitle: "CHAMPIONSHIP", icon: <Trophy className="w-5 h-5"/>, desc: "品牌高校自行车联赛" },
+    { label: "活动年历", subtitle: "CALENDAR", icon: <Calendar className="w-5 h-5"/>, desc: "春季活动正在进行中", path: "/calendar" },
+    { label: "车协历史", subtitle: "HISTORY", icon: <Flag className="w-5 h-5"/>, desc: "十余年风雨骑行录", path: "/history" },
+    { label: "车协杯", subtitle: "CHAMPIONSHIP", icon: <Trophy className="w-5 h-5"/>, desc: "品牌高校自行车联赛", path: "/cup" },
   ];
 
   return (
@@ -49,7 +50,7 @@ export default function Activities() {
           
           <div className="flex flex-col sm:flex-row gap-0 border-t border-l border-[#1A1A1A]/10 bg-[#F4F4F1]">
             {highlights.map((item, i) => (
-              <div key={i} className="flex flex-col items-start p-6 border-b border-r border-[#1A1A1A]/10 w-full sm:w-48 cursor-pointer hover:bg-[#1A1A1A] hover:text-[#F4F4F1] transition-colors group">
+              <Link to={item.path} key={i} className="flex flex-col items-start p-6 border-b border-r border-[#1A1A1A]/10 w-full sm:w-48 cursor-pointer hover:bg-[#1A1A1A] hover:text-[#F4F4F1] transition-colors group">
                 <div className="text-[#1A1A1A] mb-4 group-hover:text-[#C00000] transition-colors">
                   {item.icon}
                 </div>
@@ -59,7 +60,7 @@ export default function Activities() {
                   <p className="text-xs opacity-70 group-hover:opacity-100 max-w-[100px] leading-tight">{item.desc}</p>
                   <ArrowRight className="w-4 h-4 text-[#1A1A1A]/30 group-hover:text-[#F4F4F1] transition-colors" />
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

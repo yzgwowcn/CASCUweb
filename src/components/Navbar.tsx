@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,10 +16,10 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: '首页 HOME', href: '#home', active: true },
-    { name: '关于车协 ABOUT', href: '#culture', active: false },
-    { name: '特色活动 ACTIVITIES', href: '#activities', active: false },
-    { name: '招新加入 RECRUITMENT', href: '#recruitment', active: false },
+    { name: '首页 HOME', href: '/', active: location.pathname === '/' },
+    { name: '关于车协 ABOUT', href: '/#culture', active: false },
+    { name: '特色活动 ACTIVITIES', href: '/#activities', active: false },
+    { name: '招新加入 RECRUITMENT', href: '/#recruitment', active: false },
   ];
 
   return (
@@ -28,13 +30,13 @@ export default function Navbar() {
     >
       <div className="w-full px-6 lg:px-12">
         <div className="flex justify-between items-center">
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo(0,0)}>
+          <Link to="/" className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo(0,0)}>
              <img src="/logo.png" alt="CASCU Logo" className="h-10 w-auto object-contain" />
              <div className="flex flex-col">
                <span className="text-3xl font-black tracking-tighter text-[#1A1A1A] leading-none">CASCU</span>
                <span className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1A]/50 mt-1">EST. 2008</span>
              </div>
-          </div>
+          </Link>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-10 text-xs font-bold uppercase tracking-widest text-[#1A1A1A]">
@@ -48,7 +50,7 @@ export default function Navbar() {
               </a>
             ))}
             <a
-              href="#register"
+              href="/#register"
               className="ml-4 px-6 py-3 border border-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-[#F4F4F1] transition-all whitespace-nowrap"
             >
               活动报名 SIGNUP
@@ -81,7 +83,7 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="#register"
+            href="/#register"
             onClick={() => setIsMobileMenuOpen(false)}
             className="w-[80%] text-center py-4 border border-[#1A1A1A] bg-[#1A1A1A] text-[#F4F4F1] text-xs font-bold uppercase tracking-widest"
           >
