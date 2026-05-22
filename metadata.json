@@ -1,6 +1,6 @@
 {
   "name": "川大车协 CASCU",
-  "description": "四川大学自行车协会官方宣传与招新平台，提供社团文化展示及活动报名功能。",
+  "description": "四川大学自行车协会宣传与招新平台",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
